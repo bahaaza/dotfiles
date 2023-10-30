@@ -1,6 +1,6 @@
 -- formatters
 return {
-  "jose-elias-alvarez/null-ls.nvim",
+  "nvimtools/none-ls.nvim",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = { "mason.nvim" },
   opts = function()
@@ -10,7 +10,8 @@ return {
         nls.builtins.formatting.prettierd,
         nls.builtins.completion.spell,
         nls.builtins.formatting.stylua,
-        nls.builtins.diagnostics.flake8,
+        -- nls.builtins.diagnostics.flake8,
+        nls.builtins.formatting.autopep8,
       },
     }
   end,

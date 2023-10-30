@@ -1,3 +1,5 @@
+-- if true then return {} end
+
 return {
   {
     -- vim-rooter alternative
@@ -50,4 +52,5 @@ return {
       -- require('telescope').load_extension('projects')
     end,
   },
+
 }
