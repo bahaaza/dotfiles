@@ -15,3 +15,18 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.bo.softtabstop = 2
 vim.g.autoformat = false
+-- vim.lsp.set_log_level("debug")
+
+local function SuggestOneCharacter()
+  local suggestion = vim.fn["copilot#Accept"]("")
+  local bar = vim.fn["copilot#TextQueuedForInsertion"]()
+  return bar:sub(1, 1)
+end
+local function SuggestOneWord()
+  local suggestion = vim.fn["copilot#Accept"]("")
+  local bar = vim.fn["copilot#TextQueuedForInsertion"]()
+  return vim.fn.split(bar, [[[ .]\zs]])[1]
+end
+
+local map = vim.keymap.set
+map("i", "<M-n>", SuggestOneWord, { expr = true, remap = false })
