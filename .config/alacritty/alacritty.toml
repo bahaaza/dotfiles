@@ -15,8 +15,7 @@ live_config_reload = true
 TERM = "xterm-256color"
 
 [font]
-# scale_with_dpi = true
-size = 14
+size = 16
 
 [font.bold_italic]
 family = "CaskaydiaCove NF"
@@ -26,100 +25,96 @@ style = "Bold Italic"
 family = "CaskaydiaCove NF"
 style = "Regular"
 
-[[keyboard.bindings]]
-chars = "\u001B[94;5u"
-key = "Key6"
-mods = "Control"
 
 [[keyboard.bindings]]
 chars = "\u0002,"
 key = "Comma"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002w"
 key = "K"
-mods = "Command"
+mods = "Control"
 
 [[keyboard.bindings]]
 chars = "\u00021"
 key = "Key1"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u00022"
 key = "Key2"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u00023"
 key = "Key3"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u00024"
 key = "Key4"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u00025"
 key = "Key5"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u00026"
 key = "Key6"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u00027"
 key = "Key7"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u00028"
 key = "Key8"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u00029"
 key = "Key9"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002L"
 key = "L"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002["
 key = "LBracket"
-mods = "Command|Shift"
+mods = "Control|Shift"
 
 [[keyboard.bindings]]
 chars = "\u0002p"
 key = "LBracket"
-mods = "Command"
+mods = "ALt"
 
 [[keyboard.bindings]]
 chars = "\u0002n"
 key = "RBracket"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002T"
 key = "J"
-mods = "Command"
+mods = "Control"
 
 [[keyboard.bindings]]
 chars = "\u0002g"
 key = "G"
-mods = "Command"
+mods = "Control"
 
 [[keyboard.bindings]]
 chars = "\u0002u"
 key = "U"
-mods = "Command"
+mods = "Control"
 
 # [[keyboard.bindings]]
 # chars = "\u0002l"
@@ -129,67 +124,67 @@ mods = "Command"
 [[keyboard.bindings]]
 chars = "\u0002d"
 key = "Q"
-mods = "Command"
+mods = "Control"
 
 [[keyboard.bindings]]
 chars = "\u0002c"
 key = "T"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002!"
 key = "T"
-mods = "Command|Shift"
+mods = "Control|Shift"
 
 [[keyboard.bindings]]
 chars = "\u0002x"
 key = "W"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002z"
 key = "Z"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002\u001B[A"
 key = "Up"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002\u001B[B"
 key = "Down"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002\u001B[C"
 key = "Right"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002\u001B[D"
 key = "Left"
-mods = "Command"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002\""
 key = "Backslash"
-mods = "Command"
+mods = "Control"
 
 [[keyboard.bindings]]
 chars = "\u0002%"
 key = "Backslash"
-mods = "Command|Shift"
+mods = "Control|Shift"
 
-[[keyboard.bindings]]
-chars = "\u0004"
-key = "D"
-mods = "Command"
+# [[keyboard.bindings]]
+# chars = "\u0004"
+# key = "D"
+# mods = "Control"
 
 [[keyboard.bindings]]
 chars = "\u0012"
 key = "R"
-mods = "Command"
+mods = "Control"
 
 [[keyboard.bindings]]
 chars = "\u001B["
@@ -205,6 +200,6 @@ mods = "Alt"
 save_to_clipboard = true
 
 [window]
-decorations = "buttonless"
-opacity = 0.85
-option_as_alt = "OnlyLeft"
+decorations = "none"
+opacity = 0.90
+dimensions = {columns = 90, lines = 30}
