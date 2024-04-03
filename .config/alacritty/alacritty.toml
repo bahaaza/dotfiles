@@ -16,7 +16,7 @@ TERM = "xterm-256color"
 
 [font]
 # scale_with_dpi = true
-size = 14
+size = 15
 
 [font.bold_italic]
 family = "CaskaydiaCove NF"
