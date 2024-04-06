@@ -14,9 +14,12 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.bo.softtabstop = 2
-vim.g.autoformat = false
+vim.g.autoformat = false -- globally
+-- vim.b.autoformat = false -- buffer-local
+
 -- vim.lsp.set_log_level("debug")
 
+-- for copilot
 local function SuggestOneCharacter()
   local suggestion = vim.fn["copilot#Accept"]("")
   local bar = vim.fn["copilot#TextQueuedForInsertion"]()
