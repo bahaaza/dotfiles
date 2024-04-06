@@ -34,7 +34,7 @@ mods = "Alt"
 [[keyboard.bindings]]
 chars = "\u0002w"
 key = "K"
-mods = "Control"
+mods = "ALT"
 
 [[keyboard.bindings]]
 chars = "\u00021"
@@ -200,6 +200,6 @@ mods = "Alt"
 save_to_clipboard = true
 
 [window]
-decorations = "none"
+# decorations = "none"
 opacity = 0.90
 dimensions = {columns = 90, lines = 30}
