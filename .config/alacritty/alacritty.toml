@@ -173,13 +173,13 @@ mods = "Command"
 
 [[keyboard.bindings]]
 chars = "\u0002\""
-key = "Backslash"
+key = "'"
 mods = "Command"
 
 [[keyboard.bindings]]
 chars = "\u0002%"
 key = "Backslash"
-mods = "Command|Shift"
+mods = "Command"
 
 [[keyboard.bindings]]
 chars = "\u0004"
