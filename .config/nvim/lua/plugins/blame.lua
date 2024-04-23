@@ -1,13 +1,10 @@
-return {
+return
+{
   "FabijanZulj/blame.nvim",
-  Setup = function()
-    require("blame").setup({
-      format = function(blame)
-        return string.format("%s %s %s", blame.author, blame.date, blame.summary)
-      end,
-    })
+  config = function()
+    require("blame").setup()
   end,
   keys = {
-    { "<leader>tb", "<cmd>ToggleBlame<cr>", desc = "Toggle blame" },
+    { "<leader>tb", "<cmd>BlameToggle<cr>", desc = "Toggle blame" },
   },
 }
