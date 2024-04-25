@@ -33,3 +33,5 @@ end
 
 local map = vim.keymap.set
 map("i", "<M-n>", SuggestOneWord, { expr = true, remap = false })
+
+vim.opt.wrap = true
