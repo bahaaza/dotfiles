@@ -6,8 +6,12 @@ return {
       "bash-language-server",
       "autopep8",
       "stylua",
-      "cmakelint",
-      "eslint-lsp"
+      "dockerfile-language-server",
+      "docker-compose-language-service",
+      "lua-language-server",
+      "yaml-language-server",
+      "typescript-language-server",
+      "terraform-ls"
     },
   },
 }
