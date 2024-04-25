@@ -15,7 +15,7 @@ live_config_reload = true
 TERM = "xterm-256color"
 
 [font]
-size = 15
+size = 10
 
 [font.bold_italic]
 family = "CaskaydiaCove NF"
@@ -108,17 +108,17 @@ mods = "Alt"
 [[keyboard.bindings]]
 chars = "\u0002T"
 key = "J"
-mods = "Control"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002g"
 key = "G"
-mods = "Control"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002u"
 key = "U"
-mods = "Control"
+mods = "Alt"
 
 # [[keyboard.bindings]]
 # chars = "\u0002l"
@@ -128,7 +128,7 @@ mods = "Control"
 [[keyboard.bindings]]
 chars = "\u0002d"
 key = "Q"
-mods = "Control"
+mods = "Alt"
 
 [[keyboard.bindings]]
 chars = "\u0002c"
