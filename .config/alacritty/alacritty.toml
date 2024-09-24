@@ -203,6 +203,7 @@ mods = "Alt"
 
 [selection]
 save_to_clipboard = true
+semantic_escape_chars = " ()[]{}<>,|&;"
 
 [window]
 decorations = "buttonless"
