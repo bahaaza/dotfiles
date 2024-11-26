@@ -21,7 +21,7 @@ vim.opt.clipboard = ""
 -- vim.opt.number = true
 vim.opt.colorcolumn = "120"
 vim.opt.swapfile = false
-vim.opt.backup = true
+vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.conceallevel = 0
 vim.opt.tabstop = 2
@@ -32,18 +32,3 @@ vim.g.autoformat = false -- globally
 -- vim.b.autoformat = false -- buffer-local
 
 -- vim.lsp.set_log_level("debug")
-
--- for copilot
-local function SuggestOneCharacter()
-  local suggestion = vim.fn["copilot#Accept"]("")
-  local bar = vim.fn["copilot#TextQueuedForInsertion"]()
-  return bar:sub(1, 1)
-end
-local function SuggestOneWord()
-  -- local suggestion = vim.fn["copilot#Accept"]("")
-  local bar = vim.fn["copilot#TextQueuedForInsertion"]()
-  return vim.fn.split(bar, [[[ .]\zs]])[1]
-end
-
-local map = vim.keymap.set
-map("i", "<M-n>", SuggestOneWord, { expr = true, remap = false })
