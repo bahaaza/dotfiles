@@ -1,7 +1,7 @@
 return {
   "akinsho/bufferline.nvim",
   keys = {
-    { "<leader>w", "<Cmd>BufferLinePick<CR>", desc = "Pick a buffer" },
+    { "<leader>pw", "<Cmd>BufferLinePick<CR>", desc = "Pick a buffer" },
   },
   opts = {
     options = {
