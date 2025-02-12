@@ -8,14 +8,14 @@
 # https://alacritty.org
 
 # hide_cursor_when_typing = true
-import = ["/Users/bahaaz/.config/alacritty/catppuccin/catppuccin-macchiato.toml"]
-live_config_reload = true
+general.import = ["/Users/bahaaz/.config/alacritty/catppuccin/catppuccin-macchiato.toml"]
+general.live_config_reload = true
 
 [env]
 TERM = "xterm-256color"
 
 [font]
-size = 11
+size = 14
 
 [font.bold_italic]
 family = "CaskaydiaCove NF"
