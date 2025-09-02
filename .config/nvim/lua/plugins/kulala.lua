@@ -1,9 +1,11 @@
 return {
   "mistweaverco/kulala.nvim",
   opts = {
-    -- debug = true,
+    debug = true,
+    default_env = "local",
+    winbar = true,
     -- curl_path = "/tmp/curl",
-    additional_curl_options = { "--insecure" },
+    additional_curl_options = { "--ipv4", "--insecure" },
     certificates = {
       ["*.example-dev.com"] = {
         cert = "/path/to/secrets/.me8_dev_newItermediate/oem_admin.pem:REDACTED_PASSWORD",
@@ -12,6 +14,10 @@ return {
       ["*.example-dev2.com"] = {
         cert = "/path/to/certs/oem_admin.pem:REDACTED_PASSWORD",
         key = "/path/to/certs/oem_admin.key",
+      },
+      ["*.example-prod.com"] = {
+        cert = "/path/to/secrets/prod_oem/oem_admin.pem:REDACTED_PASSWORD",
+        key = "/path/to/secrets/prod_oem/oem_admin.key",
       },
     },
   },
