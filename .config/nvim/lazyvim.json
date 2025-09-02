@@ -1,11 +1,9 @@
 {
   "extras": [
-    "lazyvim.plugins.extras.ai.copilot-chat",
     "lazyvim.plugins.extras.coding.luasnip",
     "lazyvim.plugins.extras.coding.neogen",
     "lazyvim.plugins.extras.editor.dial",
     "lazyvim.plugins.extras.editor.fzf",
-    "lazyvim.plugins.extras.editor.inc-rename",
     "lazyvim.plugins.extras.editor.mini-diff",
     "lazyvim.plugins.extras.editor.mini-files",
     "lazyvim.plugins.extras.editor.navic",
@@ -18,7 +16,6 @@
     "lazyvim.plugins.extras.lang.markdown",
     "lazyvim.plugins.extras.lang.python",
     "lazyvim.plugins.extras.lang.sql",
-    "lazyvim.plugins.extras.lang.terraform",
     "lazyvim.plugins.extras.lang.toml",
     "lazyvim.plugins.extras.lang.typescript",
     "lazyvim.plugins.extras.lang.vue",
@@ -32,8 +29,9 @@
     "lazyvim.plugins.extras.util.project",
     "lazyvim.plugins.extras.util.rest"
   ],
+  "install_version": 7,
   "news": {
     "NEWS.md": "10960"
   },
-  "version": 7
+  "version": 8
 }
