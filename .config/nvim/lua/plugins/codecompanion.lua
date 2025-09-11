@@ -5,10 +5,24 @@ return {
     "nvim-treesitter/nvim-treesitter",
   },
   opts = {
+    display = {
+      chat = {
+        intro_message = "Welcome to CodeCompanion ✨! Press ? for options",
+        separator = "─", -- The separator between the different messages in the chat buffer
+        show_context = true, -- Show context (from slash commands and variables) in the chat buffer?
+        show_header_separator = true, -- Show header separators in the chat buffer? Set this to false if you're using an external markdown formatting plugin
+        show_settings = true, -- Show LLM settings at the top of the chat buffer?
+        show_token_count = true, -- Show the token count for each response?
+        show_tools_processing = true, -- Show the loading message when tools are being executed?
+        start_in_insert_mode = false, -- Open the chat buffer in insert mode?
+      },
+    },
     strategies = {
       chat = {
-        adapter = "copilot",
-        model = "gpt-5",
+        adapter = {
+          name = "copilot",
+          model = "claude-sonnet-4",
+        },
         keymaps = {
           send = {
             modes = { n = "<C-s>", i = "<C-s>" },
@@ -17,6 +31,11 @@ return {
           close = {
             modes = { n = "<C-c>", i = "<C-c>" },
             opts = {},
+          },
+        },
+        tools = {
+          opts = {
+            default_tools = { "git", "full_stack_dev" },
           },
         },
       },
@@ -42,5 +61,9 @@ return {
         },
       },
     },
+  },
+  keys = {
+    { "<leader>aa", "<cmd>CodeCompanionChat toggle<cr>", desc = "CodeCompanion Chat" },
+    { "<leader>ap", "<cmd>CodeCompanionActions<cr>", desc = "CodeCompanion actions" },
   },
 }

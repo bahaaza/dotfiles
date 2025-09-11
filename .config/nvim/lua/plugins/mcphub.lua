@@ -8,4 +8,7 @@ return {
     require("mcphub").setup({
     })
   end,
+  keys = {
+    { "<leader>am", "<cmd>MCPHub<cr>", desc = "Open MCP Hub" },
+  },
 }
