@@ -1,1 +1,4 @@
 lazy-lock.json
+
+# Note: Certificate secrets are stored externally at:
+# /Users/bahaaz/work/secrets/nvim-certs.lua (not tracked by git)
