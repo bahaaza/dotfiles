@@ -2,7 +2,9 @@
 local CONFIG = {
   MAX_RESPONSE_SIZE = 1024 * 1024, -- 1 MB
   DEFAULT_ENV = "local",
+  ADDITIONAL_CURL_OPTIONS = { "--ipv4", "--insecure" },
 }
+
 
 -- Safely load certificate configuration from external file
 local function load_certificates()
@@ -20,13 +22,15 @@ local function load_certificates()
 end
 
 return {
-  "bahaaza/kulala.nvim",
+  "mistweaverco/kulala.nvim",
   opts = {
-    debug = true,
+    debug = false,
+    halt_on_error = false,
     default_env = CONFIG.DEFAULT_ENV,
+    kulala_keymaps_prefix = "K",
     winbar = true,
     -- curl_path = "/tmp/curl",
-    additional_curl_options = { "--ipv4", "--insecure" },
+    additional_curl_options = CONFIG.ADDITIONAL_CURL_OPTIONS,
     certificates = load_certificates(),
     ui = {
       max_response_size = CONFIG.MAX_RESPONSE_SIZE,
