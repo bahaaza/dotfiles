@@ -1,5 +1,6 @@
 return {
   "olimorris/codecompanion.nvim",
+  lazy = false,
   init = function()
     require("plugins.ai.extensions.companion-notification").init()
   end,
@@ -7,33 +8,43 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
     "folke/noice.nvim",
-    "ravitemer/codecompanion-history.nvim",
+    {
+      "ravitemer/codecompanion-history.nvim",
+      -- commit = "eb99d256352144cf3b6a1c45608ec25544a0813d"
+    },
   },
   opts = {
-    memory = {
+    -- ignore_warnings = true,
+    rules = {
       python = {
         description = "Memory files for Claude Code users",
         files = {
-          "~/work/dev/rules/python_rules.md",
+          "~/work/AI/rules/python_rules.md",
         },
         enabled = true,
       },
       mine = {
         description = "Memory files for Claude Code users",
         files = {
-          "~/work/dev/rules/mine.md",
+          "~/work/AI/rules/mine.md",
+          "~/work/AI/rules/git-commit.md",
+          "~/work/AI/rules/memory.md",
+          "~/work/AI/rules/jira.md",
         },
         enabled = true,
       },
       opts = {
         chat = {
-          enabled = true,
-          default_memory = { "default", "mine" },
+          autoload = { "default", "mine" },
         },
       },
     },
     display = {
       chat = {
+        icons = {
+          chat_fold = " ",
+          chat_context = "📎️", -- You can also apply an icon to the fold
+        },
         intro_message = "Welcome to CodeCompanion ✨! Press ? for options",
         separator = "─", -- The separator between the different messages in the chat buffer
         show_context = true, -- Show context (from slash commands and variables) in the chat buffer?
@@ -42,14 +53,31 @@ return {
         show_token_count = true, -- Show the token count for each response?
         show_tools_processing = true, -- Show the loading message when tools are being executed?
         start_in_insert_mode = false, -- Open the chat buffer in insert mode?
+        auto_scroll = true, -- If you move your cursor while the LLM is streaming a response, auto-scrolling will be turned off.
+        fold_context = false,
+        fold_reasoning = false,
+        show_reasoning = true,
       },
+      -- diff = {
+      --   provider = "mini_diff",
+      -- },
     },
-    strategies = {
+    interactions = {
       chat = {
         adapter = {
           name = "copilot",
-          model = "claude-sonnet-4",
+          model = "claude-opus-4.6",
+          -- model = "claude-sonnet-4",
           -- model = "gpt-5",
+        },
+        variables = {
+          ["buffer"] = {
+            opts = {
+              -- Always sync the buffer by sharing its "diff"
+              -- Or choose "all" to share the entire buffer
+              default_params = "diff",
+            },
+          },
         },
         keymaps = {
           send = {
@@ -61,9 +89,80 @@ return {
             opts = {},
           },
         },
+        slash_commands = {
+          ["file"] = {
+            -- Use Telescope as the provider for the /file command
+            opts = {
+              provider = "fzf_lua", -- Can be "default", "telescope", "fzf_lua", "mini_pick" or "snacks"
+            },
+          },
+        },
         tools = {
+          ["cmd_runner"] = {
+            opts = {
+              allowed_in_yolo_mode = true,
+            },
+          },
           opts = {
-            default_tools = { "full_stack_dev", "sequentialthinking", "server-memory", "context7" },
+            -- default_tools = { "my_dev_tools" },
+            default_tools = { "full_stack_dev", "sequentialthinking", "context7", "knowledge_graph_memory", "serena", "fetch_webpage" },
+            -- default_tools = { "full_stack_dev" },
+          },
+          groups = {
+            ["my_dev_tools"] = {
+              description = "A set of development tools for coding tasks",
+              system_prompt = "I'm giving you access to the ${tools} to help you perform coding tasks. Use them wisely to assist the user effectively.",
+              tools = {
+                "next_edit_suggestion",
+                "list_code_usages",
+                "get_changed_files",
+                -- "git__git_status",
+                -- "git__git_diff_unstaged",
+                -- "git__git_diff_staged",
+                -- "git__git_diff",
+                -- "git__git_commit",
+                -- "git__git_add",
+                -- "git__git_reset",
+                -- "git__git_log",
+                -- "git__git_create_branch",
+                -- "git__git_checkout",
+                -- "git__git_show",
+                -- "git__git_branch",
+                "serena__read_file",
+                "serena__create_text_file",
+                "serena__list_dir",
+                "serena__find_file",
+                "serena__replace_content",
+                "serena__search_for_pattern",
+                "serena__get_symbols_overview",
+                "serena__find_symbol",
+                "serena__find_referencing_symbols",
+                "serena__replace_symbol_body",
+                "serena__insert_after_symbol",
+                "serena__insert_before_symbol",
+                "serena__rename_symbol",
+                "serena__write_memory",
+                "serena__read_memory",
+                "serena__list_memories",
+                "serena__delete_memory",
+                "serena__edit_memory",
+                "serena__execute_shell_command",
+                "serena__activate_project",
+                "serena__get_current_config",
+                "serena__check_onboarding_performed",
+                "serena__onboarding",
+                "serena__think_about_collected_information",
+                "serena__think_about_task_adherence",
+                "serena__think_about_whether_you_are_done",
+                "serena__prepare_for_new_conversation",
+                "sequentialthinking__sequentialthinking",
+                "context7__resolve_library_id",
+                "context7__query_docs",
+              },
+              opts = {
+                collapse_tools = true, -- When true, show as a single group reference instead of individual tools
+              },
+            },
           },
         },
       },
@@ -98,7 +197,7 @@ return {
           -- Save all chats by default (disable to save only manually using 'sc')
           auto_save = true,
           -- Number of days after which chats are automatically deleted (0 to disable)
-          expiration_days = 0,
+          expiration_days = 7,
           -- Picker interface (auto resolved to a valid picker)
           picker = "default", --- ("telescope", "snacks", "fzf-lua", or "default")
           ---Optional filter function to control which chats are shown when browsing
@@ -131,14 +230,14 @@ return {
           ---When chat is cleared with `gx` delete the chat from history
           delete_on_clearing_chat = false,
           ---Directory path to save the chats
-          dir_to_save = vim.fn.stdpath("data") .. "/codecompanion-history",
+          dir_to_save = vim.fn.stdpath("data") .. "/codecompanion_chats.json",
           ---Enable detailed logging for history extension
           enable_logging = false,
 
           -- Summary system
           summary = {
             -- Keymap to generate summary for current chat (default: "gcs")
-            create_summary_keymap = "gcs",
+            create_summary_keymap = "gCs",
             -- Keymap to browse summaries (default: "gbs")
             browse_summaries_keymap = "gbs",
 
@@ -174,29 +273,24 @@ return {
       },
     },
     prompt_library = {
-      ["Jira new Issue"] = {
-        strategy = "chat",
-        description = "Create a new Jira issue in the REMCLOUD project",
+      markdown = {
+        dirs = {
+          "~/work/AI/prompts", -- Or absolute paths
+        },
+      },
+      ["git cli commit"] = {
+        interaction = "chat",
+        description = "Generate a git commit message based on the git diff",
         opts = {
-          index = 11,
+          -- index = 5,
           is_slash_cmd = true,
           auto_submit = true,
-          short_name = "jira",
+          alias = "git_commit",
         },
         prompts = {
           {
             role = "user",
-            content = [[Please use @{mcp_atlassian} to create a new Jira issue with the following values:
-- Issue Type: Task
-- Assignee: bahaaz
-- Project Key: REMCLOUD
-- Priority additional field: Medium
-  
-Please ask me individually for the following details:
-1. Summary
-2. Description
-3. Components use tile-server by default unless I specify otherwise
-Please return the issue user-friendly web view link after creating it]],
+            content = [[Generate a concise and descriptive git commit message based on the diff, use git cli diff to get the changes.]],
           },
         },
       },
