@@ -1,0 +1,264 @@
+{
+  "mcpServers": {
+    "aws_docs": {
+      "args": [
+        "awslabs.aws-documentation-mcp-server@latest"
+      ],
+      "command": "uvx",
+      "disabled": true,
+      "env": {
+        "AWS_DOCUMENTATION_PARTITION": "aws",
+        "FASTMCP_LOG_LEVEL": "${FASTMCP_LOG_LEVEL}"
+      }
+    },
+    "awslabs.aws-documentation-mcp-server": {
+      "args": [
+        "awslabs.aws-documentation-mcp-server@latest"
+      ],
+      "command": "uvx",
+      "disabled": true,
+      "env": {
+        "AWS_DOCUMENTATION_PARTITION": "aws",
+        "FASTMCP_LOG_LEVEL": "${FASTMCP_LOG_LEVEL}"
+      }
+    },
+    "awslabs.ccapi-mcp-server": {
+      "args": [
+        "awslabs.ccapi-mcp-server@latest"
+      ],
+      "autoApprove": [],
+      "command": "uvx",
+      "disabled": true,
+      "env": {
+        "AWS_PROFILE": "${AWS_PROFILE}",
+        "AWS_REGION": "${AWS_REGION}",
+        "DEFAULT_TAGS": "enabled",
+        "FASTMCP_LOG_LEVEL": "${FASTMCP_LOG_LEVEL}",
+        "SECURITY_SCANNING": "enabled"
+      }
+    },
+    "awslabs.core-mcp-server": {
+      "args": [
+        "awslabs.core-mcp-server@latest"
+      ],
+      "autoApprove": [],
+      "command": "uvx",
+      "disabled": true,
+      "env": {
+        "AWS_PROFILE": "${AWS_PROFILE}",
+        "AWS_REGION": "${AWS_REGION}",
+        "FASTMCP_LOG_LEVEL": "${FASTMCP_LOG_LEVEL}",
+        "aws-foundation": "true",
+        "solutions-architect": "true"
+      }
+    },
+    "awslabs.terraform-mcp-server": {
+      "args": [
+        "awslabs.terraform-mcp-server@latest"
+      ],
+      "command": "uvx",
+      "disabled": true,
+      "env": {
+        "AWS_PROFILE": "${AWS_PROFILE}",
+        "AWS_REGION": "${AWS_REGION}",
+        "FASTMCP_LOG_LEVEL": "${FASTMCP_LOG_LEVEL}"
+      }
+    },
+    "context7": {
+      "autoApprove": [],
+      "type": "streamable-http",
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "fetch": {
+      "args": [
+        "mcp-server-fetch"
+      ],
+      "command": "uvx"
+    },
+    "git": {
+      "args": [
+        "mcp-server-git"
+      ],
+      "command": "uvx",
+      "disabled": true
+    },
+    "gitlab-mcp-server": {
+      "author": "GitLab MCP Team",
+      "autoApprove": [],
+      "capabilities": {
+        "tools": true
+      },
+      "description": "GitLab MCP Server - Provides GitLab API tools with intelligent caching",
+      "disabled": false,
+      "headers": {
+        "Authorization": "Bearer ${GITLAB_API_TOKEN}"
+      },
+      "url": "https://gitlab-mcp.mobileye.com/mcp",
+      "version": "1.0.0"
+    },
+    "knowledge-graph-memory": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "autoApprove": [
+        "create_entities",
+        "create_relations",
+        "add_observations",
+        "delete_entities",
+        "delete_observations",
+        "delete_relations",
+        "read_graph",
+        "search_nodes",
+        "open_nodes"
+      ],
+      "command": "npx",
+      "disabled": false,
+      "env": {
+        "MEMORY_FILE_PATH": "${HOME}/work/env/memory/memory.jsonl"
+      }
+    },
+    "mcp-atlassian": {
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "CONFLUENCE_URL",
+        "-e",
+        "CONFLUENCE_SSL_VERIFY",
+        "-e",
+        "CONFLUENCE_PERSONAL_TOKEN",
+        "-e",
+        "JIRA_URL",
+        "-e",
+        "JIRA_SSL_VERIFY",
+        "-e",
+        "JIRA_PERSONAL_TOKEN",
+        "ghcr.io/sooperset/mcp-atlassian:latest"
+      ],
+      "command": "docker",
+      "env": {
+        "CONFLUENCE_PERSONAL_TOKEN": "${CONFLUENCE_API_TOKEN}",
+        "CONFLUENCE_SSL_VERIFY": "false",
+        "CONFLUENCE_URL": "https://confluence.mobileye.com/",
+        "JIRA_PERSONAL_TOKEN": "${JIRA_API_TOKEN}",
+        "JIRA_SSL_VERIFY": "false",
+        "JIRA_URL": "https://jira.mobileye.com/"
+      }
+    },
+    "mcp-mermaid": {
+      "args": [
+        "-y",
+        "mcp-mermaid"
+      ],
+      "command": "npx",
+      "disabled": false
+    },
+    "playwright": {
+      "args": [
+        "@playwright/mcp@latest"
+      ],
+      "autoApprove": [
+        "browser_close",
+        "browser_resize",
+        "browser_console_messages",
+        "browser_handle_dialog",
+        "browser_evaluate",
+        "browser_file_upload",
+        "browser_fill_form",
+        "browser_install",
+        "browser_press_key",
+        "browser_type",
+        "browser_navigate",
+        "browser_navigate_back",
+        "browser_network_requests",
+        "browser_run_code",
+        "browser_take_screenshot",
+        "browser_snapshot",
+        "browser_click",
+        "browser_drag",
+        "browser_hover",
+        "browser_select_option",
+        "browser_tabs",
+        "browser_wait_for"
+      ],
+      "command": "npx",
+      "disabled": true
+    },
+    "sequentialthinking": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "autoApprove": [
+        "sequentialthinking"
+      ],
+      "command": "npx"
+    },
+    "serena": {
+      "args": [
+        "--from",
+        "git+https://github.com/oraios/serena",
+        "serena",
+        "start-mcp-server",
+        "--context",
+        "ide",
+        "--project",
+        "${CWD}",
+        "--language-backend",
+        "LSP",
+        "--mode",
+        "interactive",
+        "--mode",
+        "editing"
+      ],
+      "autoApprove": [
+        "read_file",
+        "create_text_file",
+        "list_dir",
+        "find_file",
+        "replace_content",
+        "search_for_pattern",
+        "get_symbols_overview",
+        "find_symbol",
+        "find_referencing_symbols",
+        "replace_symbol_body",
+        "insert_after_symbol",
+        "insert_before_symbol",
+        "rename_symbol",
+        "write_memory",
+        "read_memory",
+        "list_memories",
+        "delete_memory",
+        "edit_memory",
+        "execute_shell_command",
+        "activate_project",
+        "get_current_config",
+        "check_onboarding_performed",
+        "onboarding",
+        "think_about_collected_information",
+        "think_about_task_adherence",
+        "think_about_whether_you_are_done",
+        "prepare_for_new_conversation"
+      ],
+      "command": "uvx",
+      "disabled": true
+    },
+    "tmux": {
+      "args": [
+        "-y",
+        "tmux-mcp",
+        "--shell-type=zsh"
+      ],
+      "autoApprove": [],
+      "command": "npx",
+      "disabled": false
+    }
+  },
+  "nativeMCPServers": {
+    "neovim": {
+      "disabled": true
+    }
+  }
+}
