@@ -12,6 +12,7 @@ return {
       "ravitemer/codecompanion-history.nvim",
       -- commit = "eb99d256352144cf3b6a1c45608ec25544a0813d"
     },
+    "cairijun/codecompanion-agentskills.nvim",
   },
   opts = {
     -- ignore_warnings = true,
@@ -24,12 +25,12 @@ return {
         enabled = true,
       },
       mine = {
-        description = "Memory files for Claude Code users",
+        description = "Memory files for my personal use",
         files = {
           "~/work/AI/rules/mine.md",
           "~/work/AI/rules/git-commit.md",
           "~/work/AI/rules/memory.md",
-          "~/work/AI/rules/jira.md",
+          -- "~/work/AI/rules/jira.md",
         },
         enabled = true,
       },
@@ -105,7 +106,15 @@ return {
           },
           opts = {
             -- default_tools = { "my_dev_tools" },
-            default_tools = { "full_stack_dev", "sequentialthinking", "context7", "knowledge_graph_memory", "serena", "fetch_webpage" },
+            default_tools = {
+              "full_stack_dev",
+              "sequentialthinking",
+              "context7",
+              "knowledge_graph_memory",
+              "serena",
+              "fetch_webpage",
+              "agent_skills",
+            },
             -- default_tools = { "full_stack_dev" },
           },
           groups = {
@@ -116,48 +125,6 @@ return {
                 "next_edit_suggestion",
                 "list_code_usages",
                 "get_changed_files",
-                -- "git__git_status",
-                -- "git__git_diff_unstaged",
-                -- "git__git_diff_staged",
-                -- "git__git_diff",
-                -- "git__git_commit",
-                -- "git__git_add",
-                -- "git__git_reset",
-                -- "git__git_log",
-                -- "git__git_create_branch",
-                -- "git__git_checkout",
-                -- "git__git_show",
-                -- "git__git_branch",
-                "serena__read_file",
-                "serena__create_text_file",
-                "serena__list_dir",
-                "serena__find_file",
-                "serena__replace_content",
-                "serena__search_for_pattern",
-                "serena__get_symbols_overview",
-                "serena__find_symbol",
-                "serena__find_referencing_symbols",
-                "serena__replace_symbol_body",
-                "serena__insert_after_symbol",
-                "serena__insert_before_symbol",
-                "serena__rename_symbol",
-                "serena__write_memory",
-                "serena__read_memory",
-                "serena__list_memories",
-                "serena__delete_memory",
-                "serena__edit_memory",
-                "serena__execute_shell_command",
-                "serena__activate_project",
-                "serena__get_current_config",
-                "serena__check_onboarding_performed",
-                "serena__onboarding",
-                "serena__think_about_collected_information",
-                "serena__think_about_task_adherence",
-                "serena__think_about_whether_you_are_done",
-                "serena__prepare_for_new_conversation",
-                "sequentialthinking__sequentialthinking",
-                "context7__resolve_library_id",
-                "context7__query_docs",
               },
               opts = {
                 collapse_tools = true, -- When true, show as a single group reference instead of individual tools
@@ -271,6 +238,14 @@ return {
           },
         },
       },
+      agentskills = {
+        opts = {
+          paths = {
+            { "~/work/AI/skills", recursive = true }, -- Recursive search
+            { "~/clones/skills/skills", recursive = true }, -- Recursive search
+          },
+        },
+      },
     },
     prompt_library = {
       markdown = {
@@ -278,22 +253,22 @@ return {
           "~/work/AI/prompts", -- Or absolute paths
         },
       },
-      ["git cli commit"] = {
-        interaction = "chat",
-        description = "Generate a git commit message based on the git diff",
-        opts = {
-          -- index = 5,
-          is_slash_cmd = true,
-          auto_submit = true,
-          alias = "git_commit",
-        },
-        prompts = {
-          {
-            role = "user",
-            content = [[Generate a concise and descriptive git commit message based on the diff, use git cli diff to get the changes.]],
-          },
-        },
-      },
+      -- ["git cli commit"] = {
+      --   interaction = "chat",
+      --   description = "Generate a git commit message based on the git diff",
+      --   opts = {
+      --     -- index = 5,
+      --     is_slash_cmd = true,
+      --     auto_submit = true,
+      --     alias = "git_commit",
+      --   },
+      --   prompts = {
+      --     {
+      --       role = "user",
+      --       content = [[Generate a concise and descriptive git commit message based on the diff, use git cli diff to get the changes.]],
+      --     },
+      --   },
+      -- },
     },
   },
   keys = {
