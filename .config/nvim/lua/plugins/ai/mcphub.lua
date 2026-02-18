@@ -3,7 +3,10 @@ return {
   -- commit = "8ff40b5edc649959bb7e89d25ae18e055554859a",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "Joakker/lua-json5",
+    {
+      "Joakker/lua-json5",
+      build = "./install.sh",
+    },
   },
   build = "npm install -g mcp-hub@latest", -- Installs `mcp-hub` node binary globally
   config = function()
