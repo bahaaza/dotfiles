@@ -1,5 +1,6 @@
 return {
   "olimorris/codecompanion.nvim",
+  branch = "develop",
   lazy = false,
   init = function()
     require("plugins.ai.extensions.companion-notification").init()
@@ -12,7 +13,7 @@ return {
       "ravitemer/codecompanion-history.nvim",
       -- commit = "eb99d256352144cf3b6a1c45608ec25544a0813d"
     },
-    "cairijun/codecompanion-agentskills.nvim",
+    "bahaaza/codecompanion-agentskills.nvim",
   },
   opts = {
     -- ignore_warnings = true,
@@ -242,7 +243,6 @@ return {
         opts = {
           paths = {
             { "~/work/AI/skills", recursive = true }, -- Recursive search
-            { "~/clones/skills/skills", recursive = true }, -- Recursive search
           },
         },
       },
