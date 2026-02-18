@@ -1,7 +1,7 @@
 return {
   "olimorris/codecompanion.nvim",
-  branch = "develop",
-  lazy = false,
+  -- branch = "develop",
+  lazy = true,
   init = function()
     require("plugins.ai.extensions.companion-notification").init()
   end,
@@ -9,6 +9,18 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
     "folke/noice.nvim",
+    {
+      "HakonHarnes/img-clip.nvim",
+      opts = {
+        filetypes = {
+          codecompanion = {
+            prompt_for_file_name = false,
+            template = "[Image]($FILE_PATH)",
+            use_absolute_path = true,
+          },
+        },
+      },
+    },
     {
       "ravitemer/codecompanion-history.nvim",
       -- commit = "eb99d256352144cf3b6a1c45608ec25544a0813d"
@@ -134,6 +146,23 @@ return {
           },
         },
       },
+      background = {
+        chat = {
+          callbacks = {
+            ["on_ready"] = {
+              actions = {
+                "interactions.background.builtin.chat_make_title",
+              },
+              -- Enable "on_ready" callback which contains the title generation action
+              enabled = true,
+            },
+          },
+          opts = {
+            -- Enable background interactions generally
+            enabled = true,
+          },
+        },
+      },
     },
     -- NOTE: The log_level is in `opts.opts`
     opts = {
@@ -212,7 +241,7 @@ return {
             generation_opts = {
               adapter = nil, -- defaults to current chat adapter
               model = nil, -- defaults to current chat model
-              context_size = 90000, -- max tokens that the model supports
+              context_size = 128000, -- max tokens that the model supports
               include_references = true, -- include slash command content
               include_tool_outputs = true, -- include tool execution results
               system_prompt = nil, -- custom system prompt (string or function)
@@ -235,7 +264,8 @@ return {
             notify = true,
             -- Index all existing memories on startup
             -- (requires VectorCode 0.6.12+ for efficient incremental indexing)
-            index_on_startup = false,
+            -- uv tool install "vectorcode<1.0.0"
+            index_on_startup = true, -- NOTE: Experiminting with this disable if you notice performance issues on startup
           },
         },
       },
