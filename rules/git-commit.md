@@ -1,3 +1,7 @@
+---
+applyTo: "**"
+---
+
 # Memory Management Rules for AI Agents
 
 **What to commit to git (project knowledge):**

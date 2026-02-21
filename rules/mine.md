@@ -1,3 +1,7 @@
+---
+applyTo: "**"
+---
+
 # Agent Guidelines
 
 ## Before Starting

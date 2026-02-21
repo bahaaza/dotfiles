@@ -1,3 +1,7 @@
+---
+applyTo: "**/*.py"
+---
+
 # Python Coding Rules
 
 1. Please use python3.12+ type annotations.
