@@ -66,6 +66,7 @@
     },
     "context7": {
       "autoApprove": [],
+      "disabled": true,
       "type": "streamable-http",
       "url": "https://mcp.context7.com/mcp"
     },
@@ -73,7 +74,8 @@
       "args": [
         "mcp-server-fetch"
       ],
-      "command": "uvx"
+      "command": "uvx",
+      "disabled": true
     },
     "git": {
       "args": [
@@ -89,7 +91,7 @@
         "tools": true
       },
       "description": "GitLab MCP Server - Provides GitLab API tools with intelligent caching",
-      "disabled": false,
+      "disabled": true,
       "headers": {
         "Authorization": "Bearer ${GITLAB_API_TOKEN}"
       },
@@ -138,6 +140,7 @@
         "ghcr.io/sooperset/mcp-atlassian:latest"
       ],
       "command": "docker",
+      "disabled": true,
       "env": {
         "CONFLUENCE_PERSONAL_TOKEN": "${CONFLUENCE_API_TOKEN}",
         "CONFLUENCE_SSL_VERIFY": "false",
@@ -153,7 +156,7 @@
         "mcp-mermaid"
       ],
       "command": "npx",
-      "disabled": false
+      "disabled": true
     },
     "playwright": {
       "args": [
@@ -194,7 +197,8 @@
       "autoApprove": [
         "sequentialthinking"
       ],
-      "command": "npx"
+      "command": "npx",
+      "disabled": true
     },
     "serena": {
       "args": [
@@ -243,7 +247,7 @@
         "prepare_for_new_conversation"
       ],
       "command": "uvx",
-      "disabled": true
+      "disabled": false
     },
     "tmux": {
       "args": [
@@ -253,7 +257,7 @@
       ],
       "autoApprove": [],
       "command": "npx",
-      "disabled": false
+      "disabled": true
     }
   },
   "nativeMCPServers": {
