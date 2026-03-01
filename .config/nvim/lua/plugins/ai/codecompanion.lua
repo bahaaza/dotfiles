@@ -1,6 +1,7 @@
 return {
   "olimorris/codecompanion.nvim",
-  -- branch = "develop",
+  -- branch = "fix/respect-tool-strict-false",
+  -- commit = "a4e64ae9b9c5c315d8af93e980d8eed4cb8ca92a",
   lazy = true,
   init = function()
     require("plugins.ai.extensions.companion-notification").init()
@@ -20,6 +21,10 @@ return {
           },
         },
       },
+      keys = {
+        -- suggested keymap
+        { "<leader>p", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
+      },
     },
     {
       "ravitemer/codecompanion-history.nvim",
@@ -28,22 +33,28 @@ return {
     "bahaaza/codecompanion-agentskills.nvim",
   },
   opts = {
-    -- ignore_warnings = true,
+    -- adapters = {
+    --   http = {
+    --     azure_openai = function()
+    --       return require("codecompanion.adapters").extend("azure_openai", {
+    --         env = {
+    --           api_key = "AZURE_OPENAI_API_KEY",
+    --           endpoint = "AZURE_OPENAI_ENDPOINT",
+    --         },
+    --         schema = {
+    --           model = {
+    --             default = "DEPLOYMENT_NAME", -- The default deployment to use for Azure OpenAI
+    --           },
+    --         },
+    --       })
+    --     end,
+    --   },
+    -- },
     rules = {
-      python = {
-        description = "Memory files for Claude Code users",
-        files = {
-          "~/work/AI/rules/python_rules.md",
-        },
-        enabled = true,
-      },
       mine = {
-        description = "Memory files for my personal use",
+        description = "My personal rules and guidelines for AI interactions",
         files = {
           "~/work/AI/rules/mine.md",
-          "~/work/AI/rules/git-commit.md",
-          "~/work/AI/rules/memory.md",
-          -- "~/work/AI/rules/jira.md",
         },
         enabled = true,
       },
@@ -78,9 +89,11 @@ return {
     },
     interactions = {
       chat = {
+        -- adapter = "azure_openai",
         adapter = {
           name = "copilot",
           model = "claude-opus-4.6",
+          -- model = "gpt-5.3-codex",
           -- model = "claude-sonnet-4",
           -- model = "gpt-5",
         },
@@ -112,7 +125,7 @@ return {
           },
         },
         tools = {
-          ["cmd_runner"] = {
+          ["run_command"] = {
             opts = {
               allowed_in_yolo_mode = true,
             },
@@ -120,48 +133,87 @@ return {
           opts = {
             -- default_tools = { "my_dev_tools" },
             default_tools = {
-              "full_stack_dev",
-              "sequentialthinking",
-              "context7",
-              "knowledge_graph_memory",
-              "serena",
+              "agent",
+              "mcp:sequential-thinking",
+              "mcp:server-memory",
+              "mcp:context7",
+              "mcp:serena",
               "fetch_webpage",
               "agent_skills",
             },
             -- default_tools = { "full_stack_dev" },
           },
           groups = {
-            ["my_dev_tools"] = {
-              description = "A set of development tools for coding tasks",
-              system_prompt = "I'm giving you access to the ${tools} to help you perform coding tasks. Use them wisely to assist the user effectively.",
-              tools = {
-                "next_edit_suggestion",
-                "list_code_usages",
-                "get_changed_files",
-              },
-              opts = {
-                collapse_tools = true, -- When true, show as a single group reference instead of individual tools
-              },
-            },
+            -- ["my_dev_tools"] = {
+            --   description = "A set of development tools for coding tasks",
+            --   system_prompt = "I'm giving you access to the ${tools} to help you perform coding tasks. Use them wisely to assist the user effectively.",
+            --   tools = {
+            --     "get_changed_files",
+            --   },
+            --   opts = {
+            --     collapse_tools = true, -- When true, show as a single group reference instead of individual tools
+            --   },
+            -- },
           },
         },
       },
-      background = {
-        chat = {
-          callbacks = {
-            ["on_ready"] = {
-              actions = {
-                "interactions.background.builtin.chat_make_title",
-              },
-              -- Enable "on_ready" callback which contains the title generation action
-              enabled = true,
-            },
-          },
-          opts = {
-            -- Enable background interactions generally
-            enabled = true,
+      -- background = {
+      --   chat = {
+      --     callbacks = {
+      --       ["on_ready"] = {
+      --         actions = {
+      --           "interactions.background.builtin.chat_make_title",
+      --         },
+      --         -- Enable "on_ready" callback which contains the title generation action
+      --         enabled = true,
+      --       },
+      --     },
+      --     opts = {
+      --       -- Enable background interactions generally
+      --       enabled = true,
+      --     },
+      --   },
+      -- },
+    },
+    mcp = {
+      servers = {
+        ["sequential-thinking"] = {
+          cmd = { "npx", "-y", "@modelcontextprotocol/server-sequential-thinking" },
+        },
+        ["serena"] = {
+          cmd = {
+            "uvx",
+            "--from",
+            "git+https://github.com/oraios/serena",
+            "serena",
+            "start-mcp-server",
+            "--context",
+            "ide",
+            "--project",
+            vim.fn.getcwd(),
+            "--language-backend",
+            "LSP",
+            "--mode",
+            "interactive",
+            "--mode",
+            "editing",
           },
         },
+        ["context7"] = {
+          cmd = { "npx", "-y", "@upstash/context7-mcp" },
+          env = {
+            CONTEXT7_API_KEY = "CONTEXT7_API_KEY",
+          },
+        },
+        ["server-memory"] = {
+          cmd = { "npx", "-y", "@modelcontextprotocol/server-memory" },
+          env = {
+            MEMORY_FILE_PATH = vim.fn.getcwd() .. "/.memory/memory.json",
+          },
+        },
+      },
+      opts = {
+        default_servers = { "sequential-thinking", "serena", "context7", "server-memory" },
       },
     },
     -- NOTE: The log_level is in `opts.opts`
@@ -169,21 +221,6 @@ return {
       log_level = "DEBUG", -- or "TRACE"
     },
     extensions = {
-      mcphub = {
-        callback = "mcphub.extensions.codecompanion",
-        opts = {
-          -- MCP Tools
-          make_tools = true, -- Make individual tools (@server__tool) and server groups (@server) from MCP servers
-          show_server_tools_in_chat = true, -- Show individual tools in chat completion (when make_tools=true)
-          add_mcp_prefix_to_tool_names = false, -- Add mcp__ prefix (e.g `@mcp__github`, `@mcp__neovim__list_issues`)
-          show_result_in_chat = true, -- Show tool results directly in chat buffer
-          format_tool = nil, -- function(tool_name:string, tool: CodeCompanion.Agent.Tool) : string Function to format tool names to show in the chat buffer
-          -- MCP Resources
-          make_vars = true, -- Convert MCP resources to #variables for prompts
-          -- MCP Prompts
-          make_slash_commands = true, -- Add MCP prompts as /slash commands
-        },
-      },
       history = {
         enabled = true,
         opts = {
@@ -211,7 +248,7 @@ return {
             ---Adapter for generating titles (defaults to current chat adapter)
             adapter = nil, -- "copilot"
             ---Model for generating titles (defaults to current chat model)
-            model = "gpt-4o", -- "gpt-4o"
+            model = "gpt-5-mini", -- "claude-sonnet-4", "gpt-4.1", etc.
             ---Number of user prompts after which to refresh the title (0 to disable)
             refresh_every_n_prompts = 0, -- e.g., 3 to refresh after every 3rd user prompt
             ---Maximum number of times to refresh the title (default: 3)

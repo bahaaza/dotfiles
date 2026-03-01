@@ -4,18 +4,22 @@ applyTo: "**"
 
 # Agent Guidelines
 
+Always start by remembering the project context and any relevant information
+from memory using serena and server-memory tools show "remembering" to the
+user while doing it
+
 ## Before Starting
 
 - Ask for clarification on missing requirements, schemas (input/output/
   elastic...), or data structures
-- Check memory for related previous work
 - Confirm understanding before proceeding
 
 ## Planning
 
+- Always switch serena to interactive planning mode before creating a pla
 - Research each task before creating a plan
 - Create a work plan; break into small tasks
-- Use `sequentialthinking` for complex tasks
+- Use `sequentialthinking` tool for complex tasks
 - Save approved plans to memory with status checkboxes
 
 ## Research
@@ -27,6 +31,7 @@ applyTo: "**"
 
 ## Implementation
 
+- Switch serena to interactive editing modes before editing code
 - Follow language best practices; write clean, documented code
 - Handle edge cases and errors
 - Make incremental changes; explain each step before executing
@@ -42,71 +47,10 @@ applyTo: "**"
 - Validate configuration files (JSON, YAML, TOML)
 - If a required CLI tool is missing, prompt the user to install it before proceeding
 
-## Checkpoint Memory
-
-Maintain persistent state across sessions using checkpoint memory files.
-
-### Checkpoint Files Structure
+## Checkpoint
 
 - `checkpoint-current.md` — Current session state (active task, progress, context)
-- `checkpoint-history.md` — Log of all checkpoints with timestamps
-- `checkpoint-rollback.md` — Saved states for potential rollback
-- `task-plan.md` — Current work plan with status checkboxes
-- `decisions.md` — Key decisions made and their rationale
-- `context-cache.md` — Cached research findings and references
-
-### When to Create Checkpoints
-
-- **Before major changes**: Save state before refactoring, deleting, or restructuring
-- **After completing tasks**: Checkpoint after each task in the plan
-- **Before risky operations**: Save before running destructive commands
-- **On user request**: Create checkpoint when asked to "save progress"
-- **At natural breakpoints**: End of planning, research, implementation phases
-
-### Checkpoint Format
-
-```markdown
-## Checkpoint: [YYYY-MM-DD HH:MM]
-
-### Current State
-
-- Task: [current task description]
-- Phase: [planning|research|implementation|review]
-- Progress: [X/Y tasks complete]
-
-### Files Modified
-
-- [list of files changed since last checkpoint]
-
-### Context
-
-- [relevant context, decisions, blockers]
-
-### Rollback Instructions
-
-- [steps to revert to this state if needed]
-```
-
-### Checkpoint Workflow
-
-1. **Save checkpoint**: Use `write_memory` to save to `checkpoint-current.md`
-2. **Archive to history**: Append checkpoint summary to `checkpoint-history.md`
-3. **Update rollback**: Before overwriting, copy current to `checkpoint-rollback.md`
-4. **Cross-reference**: Link to related memory files (`task-plan.md`, `decisions.md`)
-
-### Rollback Process
-
-1. Read `checkpoint-rollback.md` or specific entry from `checkpoint-history.md`
-2. Restore state using saved context and file list
-3. Use `git diff` or `get_changed_files` to identify changes since checkpoint
-4. Revert files as needed; update `checkpoint-current.md` with restored state
-
-### Memory Commands
-
-- "save checkpoint" — Create immediate checkpoint
-- "show checkpoints" — List from `checkpoint-history.md`
-- "rollback to [checkpoint]" — Restore previous state
-- "clear checkpoints" — Archive and reset checkpoint files
+- `task-{name}.md` — Current work plan with status checkboxes
 
 ## After Completing
 
@@ -114,3 +58,25 @@ Maintain persistent state across sessions using checkpoint memory files.
 - Mark completed tasks in memory (update `[ ]` to `[x]`)
 - **Create completion checkpoint** with summary of changes
 - Request feedback before next step
+
+## Git
+
+**What to commit to git (project knowledge):**
+
+- Project overviews and codebase structure
+- Code style conventions and patterns
+- Architecture documentation (repositories, identity fields, relationships)
+- Test infrastructure and how-to-run guides
+- Suggested commands and tooling references
+- Feature context and summaries (e.g. visualizer context)
+
+**What NOT to commit to git (ephemeral/task-specific):**
+
+- `task-plan*` — task plan files
+- `plan-*` — planning files
+- `checkpoint-*` — session checkpoints (current, history, rollback)
+- `*-implementation*` — implementation tracking files
+
+**Rule of thumb:** If a memory describes _what the project is_ or _how it
+works_, commit it. If it describes _what you are doing right now_ or _what you
+plan to do_, delete it when the task is done and never commit it.
